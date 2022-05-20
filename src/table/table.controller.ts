@@ -7,9 +7,12 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CreateTableDto } from './dto/create-table.dto';
+import { UpdateTableDto } from './dto/update-table.dto';
 import { TableService } from './table.service';
 
+@ApiTags('table')
 @Controller('table')
 export class TableController {
   constructor(private tableService: TableService) {}
@@ -31,7 +34,7 @@ export class TableController {
   }
 
   @Put(':id')
-  update(@Param('id') id: Number, @Body() updateTableDto: CreateTableDto) {
+  update(@Param('id') id: Number, @Body() updateTableDto: UpdateTableDto) {
     return this.tableService.update(id, updateTableDto);
   }
 
