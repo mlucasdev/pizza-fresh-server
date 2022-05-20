@@ -8,7 +8,6 @@ import {
   Put,
 } from '@nestjs/common';
 import { CreateTableDto } from './dto/create-table.dto';
-import { UpdateTableDto } from './dto/update-table.dto';
 import { TableService } from './table.service';
 
 @Controller('table')
@@ -32,7 +31,7 @@ export class TableController {
   }
 
   @Put(':id')
-  update(@Param('id') id: Number, @Body() updateTableDto: UpdateTableDto) {
+  update(@Param('id') id: Number, @Body() updateTableDto: CreateTableDto) {
     return this.tableService.update(id, updateTableDto);
   }
 

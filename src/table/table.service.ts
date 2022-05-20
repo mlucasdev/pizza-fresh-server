@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTableDto } from './dto/create-table.dto';
-import { UpdateTableDto } from './dto/update-table.dto';
 import { Table } from './entities/table.entity';
 
 @Injectable()
@@ -25,7 +24,7 @@ export class TableService {
     }
   }
 
-  update(id: Number, updateTableDto: UpdateTableDto) {
+  update(id: Number, updateTableDto: CreateTableDto) {
     for (let i = 0; i < this.tables.length; i++) {
       if (id == this.tables[i].id) {
         this.tables[i].number = updateTableDto.number;
