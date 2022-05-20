@@ -29,8 +29,8 @@ export class TableController {
   }
 
   @Get(':id')
-  findOne(@Param() params) {
-    return this.tableService.findOne(params.id);
+  findOne(@Param('id') id: Number) {
+    return this.tableService.findOne(id);
   }
 
   @Put(':id')
@@ -39,7 +39,7 @@ export class TableController {
   }
 
   @Delete(':id')
-  remove(@Param() params) {
-    return this.tableService.remove(params.id);
+  remove(@Param('id') id: Number) {
+    return this.tableService.remove(id);
   }
 }
