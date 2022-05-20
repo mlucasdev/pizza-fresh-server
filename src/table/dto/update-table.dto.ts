@@ -1,6 +1,6 @@
 import { IsNumber, IsPositive } from 'class-validator';
 
-export class CreateTableDto {
+export class UpdateTableDto {
   @IsNumber()
   @IsPositive()
   number: Number;
