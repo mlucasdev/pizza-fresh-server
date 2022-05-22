@@ -19,7 +19,7 @@ export class TableService {
 
   findOne(id: Number) {
     for (let i of this.tables) {
-      if (id == i.id) {
+      if (id === i.id) {
         return i;
       }
     }
