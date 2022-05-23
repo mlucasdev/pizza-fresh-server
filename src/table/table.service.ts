@@ -18,11 +18,7 @@ export class TableService {
   }
 
   findOne(id: Number) {
-    for (let i of this.tables) {
-      if (id === i.id) {
-        return i;
-      }
-    }
+    return this.tables.find(element => element.id === id)
   }
 
   update(id: Number, updateTableDto: UpdateTableDto) {
