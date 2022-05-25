@@ -20,9 +20,9 @@ export class TableService {
     return this.prisma.table.findMany();
   }
 
-  // findOne(id: string): Promise<Table> {
-  //   return this.prisma.table.findUnique({ where: { id } });
-  // }
+  findOne(id: string): Promise<Table> {
+    return this.prisma.table.findUnique({ where: { id } });
+  }
 
   // update(id: number, updateTableDto: UpdateTableDto) {
   //   for (let i = 0; i < this.tables.length; i++) {
