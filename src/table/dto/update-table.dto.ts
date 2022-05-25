@@ -8,5 +8,5 @@ export class UpdateTableDto {
     description: 'Novo número da mesa.',
     example: 7,
   })
-  number: Number;
+  number: number;
 }

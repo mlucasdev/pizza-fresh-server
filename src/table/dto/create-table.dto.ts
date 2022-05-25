@@ -8,5 +8,5 @@ export class CreateTableDto {
     description: 'Número da mesa a ser criada.',
     example: 1,
   })
-  number: Number;
+  number: number;
 }
