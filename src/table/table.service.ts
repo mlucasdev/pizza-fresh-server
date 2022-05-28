@@ -24,14 +24,13 @@ export class TableService {
     return this.prisma.table.findUnique({ where: { id } });
   }
 
-  // update(id: number, updateTableDto: UpdateTableDto) {
-  //   for (let i = 0; i < this.tables.length; i++) {
-  //     if (id == this.tables[i].id) {
-  //       this.tables[i].number = updateTableDto.number;
-  //       return this.tables[i];
-  //     }
-  //   }
-  // }
+  update(id: string, dto: UpdateTableDto): Promise<Table> {
+    const data: Partial<Table> = { ...dto };
+    return this.prisma.table.update({
+      where: { id },
+      data,
+    });
+  }
 
   // remove(id: number) {
   //   for (let i = 0; i < this.tables.length; i++) {

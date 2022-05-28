@@ -1,12 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsPositive } from 'class-validator';
+import { PartialType } from '@nestjs/swagger';
+import { CreateTableDto } from './create-table.dto';
 
-export class UpdateTableDto {
-  @IsNumber()
-  @IsPositive()
-  @ApiProperty({
-    description: 'Novo número da mesa.',
-    example: 7,
-  })
-  number: number;
-}
+export class UpdateTableDto extends PartialType(CreateTableDto) {}
