@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateTableDto } from './dto/create-table.dto';
 import { UpdateTableDto } from './dto/update-table.dto';
@@ -21,10 +21,11 @@ export class TableService {
   }
 
   findOne(id: string): Promise<Table> {
-    return this.prisma.table.findUnique({ where: { id } });
+    return this.findById(id);
   }
 
-  update(id: string, dto: UpdateTableDto): Promise<Table> {
+  async update(id: string, dto: UpdateTableDto): Promise<Table> {
+    await this.findById(id);
     const data: Partial<Table> = { ...dto };
     return this.prisma.table.update({
       where: { id },
@@ -33,6 +34,16 @@ export class TableService {
   }
 
   async delete(id: string) {
+    await this.findById(id);
     await this.prisma.table.delete({ where: { id } });
+    throw new HttpException('', 204);
+  }
+
+  async findById(id: string): Promise<Table> {
+    const record = await this.prisma.table.findUnique({ where: { id } });
+    if (!record) {
+      throw new NotFoundException(`Registro com o Id '${id}' não encontrado.`);
+    }
+    return record;
   }
 }
