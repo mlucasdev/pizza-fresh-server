@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Patch,
   Post,
@@ -44,14 +46,18 @@ export class TableController {
 
   @Patch(':id')
   @ApiOperation({
-    summary: 'Atualizar uma mesa por ID.',
+    summary: 'Atualizar uma mesa pelo ID.',
   })
   update(@Param('id') id: string, @Body() dto: UpdateTableDto): Promise<Table> {
     return this.tableService.update(id, dto);
   }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: number) {
-  //   return this.tableService.remove(id);
-  // }
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({
+    summary: 'Remover uma mesa pelo ID.',
+  })
+  delete(@Param('id') id: string) {
+    this.tableService.delete(id);
+  }
 }

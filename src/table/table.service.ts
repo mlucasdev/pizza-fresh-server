@@ -32,13 +32,7 @@ export class TableService {
     });
   }
 
-  // remove(id: number) {
-  //   for (let i = 0; i < this.tables.length; i++) {
-  //     if (id == this.tables[i].id) {
-  //       const table = this.tables[i];
-  //       this.tables.splice(1, i);
-  //       return { message: `Mesa ${table.number} deletada com sucesso.` };
-  //     }
-  //   }
-  // }
+  async delete(id: string) {
+    await this.prisma.table.delete({ where: { id } });
+  }
 }
