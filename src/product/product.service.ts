@@ -11,4 +11,8 @@ export class ProductService {
     const data: Product = { ...dto };
     return this.prisma.product.create({ data });
   }
+
+  findAll(): Promise<Product[]> {
+    return this.prisma.product.findMany();
+  }
 }
