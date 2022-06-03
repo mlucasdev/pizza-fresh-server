@@ -1,10 +1,19 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entities/product.entity';
 import { ProductService } from './product.service';
 
+@ApiTags('product')
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
@@ -42,5 +51,13 @@ export class ProductController {
     @Body() dto: UpdateProductDto,
   ): Promise<Product> {
     return this.productService.update(id, dto);
+  }
+
+  @Delete(':id')
+  @ApiOperation({
+    summary: 'Deletar um Produto pelo ID.',
+  })
+  delete(@Param('id') id: string) {
+    return this.productService.delete(id);
   }
 }
