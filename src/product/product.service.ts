@@ -15,4 +15,8 @@ export class ProductService {
   findAll(): Promise<Product[]> {
     return this.prisma.product.findMany();
   }
+
+  findOne(id: string): Promise<Product> {
+    return this.prisma.product.findUnique({ where: { id } });
+  }
 }

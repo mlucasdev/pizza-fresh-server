@@ -1,8 +1,8 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
-import { ApiOperation } from "@nestjs/swagger";
-import { CreateProductDto } from "./dto/create-product.dto";
-import { Product } from "./entities/product.entity";
-import { ProductService } from "./product.service";
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ApiOperation } from '@nestjs/swagger';
+import { CreateProductDto } from './dto/create-product.dto';
+import { Product } from './entities/product.entity';
+import { ProductService } from './product.service';
 
 @Controller('product')
 export class ProductController {
@@ -22,5 +22,13 @@ export class ProductController {
   })
   findAll(): Promise<Product[]> {
     return this.productService.findAll();
+  }
+
+  @Get(':id')
+  @ApiOperation({
+    summary: 'Buscar um Produto pelo ID.',
+  })
+  findOne(@Param('id') id: string): Promise<Product> {
+    return this.productService.findOne(id);
   }
 }
