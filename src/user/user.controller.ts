@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
@@ -23,5 +23,13 @@ export class UserController {
   })
   findAll(): Promise<User[]> {
     return this.userService.findAll();
+  }
+
+  @Get(':id')
+  @ApiOperation({
+    summary: 'Buscar um Usuário por ID.',
+  })
+  findOne(@Param('id') id: string): Promise<User> {
+    return this.userService.findOne(id);
   }
 }
