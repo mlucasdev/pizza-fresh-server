@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateProductDto } from './dto/create-product.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entities/product.entity';
 
 @Injectable()
@@ -18,5 +19,10 @@ export class ProductService {
 
   findOne(id: string): Promise<Product> {
     return this.prisma.product.findUnique({ where: { id } });
+  }
+
+  update(id: string, dto: UpdateProductDto): Promise<Product> {
+    const data: Partial<Product> = { ...dto };
+    return this.prisma.product.update({ where: { id }, data });
   }
 }

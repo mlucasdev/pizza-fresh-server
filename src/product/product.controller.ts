@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { CreateProductDto } from './dto/create-product.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entities/product.entity';
 import { ProductService } from './product.service';
 
@@ -30,5 +31,16 @@ export class ProductController {
   })
   findOne(@Param('id') id: string): Promise<Product> {
     return this.productService.findOne(id);
+  }
+
+  @Patch(':id')
+  @ApiOperation({
+    summary: 'Editar um Produto pelo ID.',
+  })
+  update(
+    @Param('id') id: string,
+    @Body() dto: UpdateProductDto,
+  ): Promise<Product> {
+    return this.productService.update(id, dto);
   }
 }
