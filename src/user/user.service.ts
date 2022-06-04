@@ -1,8 +1,8 @@
 import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { UpdateProductDto } from 'src/product/dto/update-product.dto';
 import { handleError } from 'src/utils/handle-error.util';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
 @Injectable()
@@ -15,15 +15,20 @@ export class UserService {
     return this.prisma.user.create({ data }).catch(handleError);
   }
 
-  findAll(): Promise<User[]> {
-    return this.prisma.user.findMany();
+  async findAll(): Promise<User[]> {
+    const users: User[] = await this.prisma.user.findMany();
+    if (users.length == 0) {
+      throw new NotFoundException('Nenhum usuário foi encontrado.');
+    }
+    return users;
   }
 
   findOne(id: string): Promise<User> {
     return this.findById(id);
   }
 
-  async update(id: string, dto: UpdateProductDto): Promise<User> {
+  async update(id: string, dto: UpdateUserDto): Promise<User> {
+    delete dto.confirmPassword;
     await this.findById(id);
     const data: Partial<User> = { ...dto };
     return this.prisma.user.update({ where: { id }, data }).catch(handleError);
