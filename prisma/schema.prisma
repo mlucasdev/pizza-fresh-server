@@ -32,7 +32,7 @@ model Product {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  orders Order[]
+  orders OrderProduct[]
 
   @@map("product")
 }
@@ -61,10 +61,26 @@ model Order {
   table   Table  @relation(fields: [tableId], references: [id])
   tableId String @map("table_id")
 
-  products Product[]
+  products OrderProduct[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("order")
+}
+
+model OrderProduct {
+  id String @id @default(uuid())
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId String  @map("product_id")
+
+  order   Order  @relation(fields: [orderId], references: [id])
+  orderId String @map("order_id")
+
+  quantity    Int
+  description String
+
+  @@unique([productId, orderId])
+  @@map("order_to_product")
 }
