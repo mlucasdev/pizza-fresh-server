@@ -6,7 +6,7 @@ export class LoginDto {
   @IsNotEmpty()
   @ApiProperty({
     description: 'Nickname do usuário',
-    example: 'lucasmarques',
+    example: 'neymarjr',
   })
   nickname: string;
 
